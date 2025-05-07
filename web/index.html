@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Elephant Pal: Your reliable & good business pal!">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Elephant Pal">
+  <meta name="google-signin-client_id" content="0b3kchk4qj2frqv94j2q5lefq02sbe72.apps.googleusercontent.com">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Elephant Pal</title>
+  <link rel="manifest" href="manifest.json">
+
+  <script>
+    let actityPath = '/pages/activity/';
+    let actityPrePath = '/activity/#';
+    // 获取当前页面的路径信息
+    let pathname = window.location.pathname;
+    let origin = window.location.origin;
+    let hash = window.location.hash.substring(1);
+    let params = new URLSearchParams(window.location.search);
+
+    // 跳转到 旧项目（uni）
+    if (pathname.includes(actityPath) &&
+    !pathname.includes('/activity/pages')) {
+      console.log('========1');
+      window.location.href =
+          `${origin}${actityPrePath}${pathname}${window.location.search}`;
+    }
+
+    // 兼容旧url商品详情 跳转到 新路由
+    if (pathname.includes('/pages/goods/goodsDetails')) {
+      console.log('========2');
+      window.location.href = `${origin}/#/${params.get('saleItemId')}`;
+    }
+    // console.log('=====hash', hash)
+    // if (hash == null || hash == '') {
+    //   window.location.href = `${origin}/`;
+    // }
+  </script>
+
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    const serviceWorkerVersion = '{{flutter_service_worker_version}}';
+  </script>
+  <!-- This script adds the flutter initialization JS code -->
+  <!-- <script src="flutter.js" defer></script> -->
+</head>
+<body>
+  <style>
+    html,
+    body,
+    #app {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      position: relative;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .loader,
+    .loader:before,
+    .loader:after {
+      border-radius: 50%;
+      width: 2.5em;
+      height: 2.5em;
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+      -webkit-animation: loadAnimation 1.8s infinite ease-in-out;
+      animation: loadAnimation 1.8s infinite ease-in-out;
+    }
+
+    .loader {
+      color: rgba(42, 95, 216, 1);
+      font-size: 10px;
+      margin: 80px auto;
+      position: relative;
+      text-indent: -9999em;
+      -webkit-transform: translateZ(0);
+      -ms-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-animation-delay: -0.16s;
+      animation-delay: -0.16s;
+      top: 0;
+      transform: translate(-50%, 0);
+    }
+
+    .loader:before,
+    .loader:after {
+      content: '';
+      position: absolute;
+      top: 0;
+    }
+
+    .loader:before {
+      left: -3.5em;
+      -webkit-animation-delay: -0.32s;
+      animation-delay: -0.32s;
+    }
+
+    .loader:after {
+      left: 3.5em;
+    }
+
+    @-webkit-keyframes loadAnimation {
+
+      0%,
+      80%,
+      100% {
+        box-shadow: 0 2.5em 0 -1.3em;
+      }
+
+      40% {
+        box-shadow: 0 2.5em 0 0;
+      }
+    }
+
+    @keyframes loadAnimation {
+
+      0%,
+      80%,
+      100% {
+        box-shadow: 0 2.5em 0 -1.3em;
+      }
+
+      40% {
+        box-shadow: 0 2.5em 0 0;
+      }
+    }
+  </style>
+  <div id="app">
+    <div class="loader"></div>
+  </div>
+
+  <script>
+  {{flutter_js}}
+  {{flutter_build_config}}
+
+  
+  _flutter.loader.load({
+    onEntrypointLoaded: async function(engineInitializer) {
+      const appRunner = await engineInitializer.initializeEngine();
+      await appRunner.runApp();
+    },
+  });
+  </script>
+</body>
+</html>

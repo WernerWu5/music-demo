@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "460510397561",
+    "project_id": "elephantpal-365411",
+    "storage_bucket": "elephantpal-365411.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460510397561:android:4a847e6bf593be1b9fc0a8",
+        "android_client_info": {
+          "package_name": "com.elephantpal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460510397561-glfppgsqkbh68b7ncbmbrd8il3dsegd5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.elephantpal",
+            "certificate_hash": "1966065fa5ea11b01053ac96aad9f6384f255d01"
+          }
+        },
+        {
+          "client_id": "460510397561-s1qonta6393ic381lv5ev97da2ea9le8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.elephantpal",
+            "certificate_hash": "f61994b87fb29b23d05b469d5e25bbc7549adea7"
+          }
+        },
+        {
+          "client_id": "460510397561-0b3kchk4qj2frqv94j2q5lefq02sbe72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2Iurn_qJR13jKH9FNQoZ3n-sE_KTyuNM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460510397561-0b3kchk4qj2frqv94j2q5lefq02sbe72.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "460510397561-ec0s4kmuh9uj4i48nfgj9nfkn1ugrhft.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.distributionMallFlutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
