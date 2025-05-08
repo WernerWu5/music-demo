@@ -30,39 +30,9 @@ class ApiInterceptor extends Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    try {
-      ResponseJsonBody data = ResponseJsonBody.fromJson(response.data);
-      List<String> expiredAuthCodes = ['109', '107', '105', '1001'];
-      if (expiredAuthCodes.contains(data.status?.returnCode)) {
-        EPToast.showToast(data.status!.message!);
-        return super.onResponse(response, handler);
-      }
-      if (data.body != null &&
-          data.body is Map<String, dynamic> &&
-          data.body?['token'] != null) {
-        String token = data.body?['token'];
-        String signSecret = data.body?['signSecret'];
-        if (token.isNotEmpty && signSecret.isNotEmpty) {
-          EPstorage.secret.put(SecretBoxKey.token, token);
-          EPstorage.secret.put(SecretBoxKey.signSecret, signSecret);
-        }
-      }
-      if (data.status?.success != true &&
-          data.status?.message?.isNotEmpty == true &&
-          extra?['hideMessage'] == null) {
-        if (data.status!.message! == '并发异常') {
-          EPToast.showToast('Concurrency Exception');
-        } else if (data.status!.message! == '服务器异常') {
-          EPToast.showToast('Server Exception');
-        } else {
-          EPToast.showToast(data.status!.message!);
-        }
-      }
-    } catch (err) {
+    try {} catch (err) {
       debugPrint('ApiInterceptor-onResponse===============: $err');
     }
-
-    // handler.next(response);
     return super.onResponse(response, handler);
   }
 

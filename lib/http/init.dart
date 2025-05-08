@@ -69,10 +69,10 @@ class Request {
         logPrint: (logObj) => log(logObj.toString())));
 
     dio.transformer = BackgroundTransformer();
-    dio.options.validateStatus = (int? status) {
-      return status! >= 200 && status < 300 ||
-          HttpConstant.validateStatusCodes.contains(status);
-    };
+    // dio.options.validateStatus = (int? status) {
+    //   return status! >= 200 && status < 300 ||
+    //       HttpConstant.validateStatusCodes.contains(status);
+    // };
   }
 
   /*
@@ -105,7 +105,7 @@ class Request {
       if (DebugConstant.isOpenRequestLog()) {
         log('response data ${response.data}');
       }
-      return ResponseJsonBody.fromJson(jsonDecode(response.toString()));
+      return jsonDecode(response.toString());
     } on DioException catch (e) {
       Response errResponse = Response(
         data: {
@@ -250,22 +250,11 @@ class Request {
         throw Exception('不支持的方法');
       }
       var data = response.data;
-      if (data['status']['success'] == true) {
-        var body = data['body'];
-        if (<String>[] is T && dynamic is! T) {
-          return (body as List<dynamic>).cast<String>() as T;
-        }
-        T? result = response.data.toString().codeUnits.length < 50 * 1024
-            ? JsonConvert.fromJsonAsT<T>(body)
-            : await compute(
-                (jsonData) => JsonConvert.fromJsonAsT<T>(jsonData), body);
-        return Future.value(result);
-      } else {
-        return Future.error(NetException(
-          code: data['status']['returnCode'].toString(),
-          message: data['status']['message'],
-        ));
-      }
+      T? result = response.data.toString().codeUnits.length < 50 * 1024
+          ? JsonConvert.fromJsonAsT<T>(data)
+          : await compute(
+              (jsonData) => JsonConvert.fromJsonAsT<T>(jsonData), data);
+      return Future.value(result);
     } on DioException catch (e, s) {
       println('DioException $e $s');
       return Future.error(NetException(

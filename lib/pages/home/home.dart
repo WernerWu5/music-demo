@@ -6,14 +6,18 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:distribution_mall_flutter/constant/constant.dart';
 import 'package:distribution_mall_flutter/mixins/page_stay_time.dart';
 import 'package:distribution_mall_flutter/pages/home/application/home_service.dart';
+import 'package:distribution_mall_flutter/pages/home/domain/music_entity.dart';
 import 'package:distribution_mall_flutter/pages/home/home_provider.dart';
 import 'package:distribution_mall_flutter/pages/home/widgets/agreement.dart';
 import 'package:distribution_mall_flutter/pages/home/widgets/home_appbar.dart';
+import 'package:distribution_mall_flutter/utils/image_loader.dart';
 import 'package:distribution_mall_flutter/utils/storage.dart';
 import 'package:distribution_mall_flutter/widgets/shimmer.dart';
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:listview_infinite_pagination/listview_infinite_pagination.dart';
 
 final GlobalKey<ScaffoldState> _homeKey = GlobalKey<ScaffoldState>();
 
@@ -60,25 +64,34 @@ class _HomePage extends ConsumerState<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(homeProvider);
     ref.watch(homeServiceProvider);
     return Scaffold(
         key: _homeKey,
-        appBar: HomeAppbar(
-          context: context,
-        ),
-        // endDrawer: Drawer(
-        //   width: 300,
-        //   child: Container(
-        //     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-        //     child: const HeaderBar(),
-        //   ),
-        // ),
+        appBar: const HomeAppbar(),
         body: EPShimmer(
-          enabled: true,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [],
-            ),
+          enabled: state.loading,
+          child: ListView.builder(
+            itemCount: state.data.length, // 列表项总数
+            itemBuilder: (context, index) {
+              return Card(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    ListTile(
+                      leading: ImageLoader.imageNet(
+                          state.data[index].artworkUrl60 ?? '',
+                          width: 60,
+                          height: 60,
+                          fit: BoxFit.cover),
+                      title: Text(
+                          '${state.data[index].artistName} - ${state.data[index].trackName}'),
+                      subtitle: Text('${state.data[index].collectionName}'),
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
         ));
   }

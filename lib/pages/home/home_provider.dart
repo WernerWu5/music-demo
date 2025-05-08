@@ -13,7 +13,39 @@ class Home extends _$Home {
     return const HomeState();
   }
 
+  void setActiveSelect(List<dynamic> d) {
+    state = state.copyWith(activeSelect: d);
+  }
+
+  void setLoading(bool d) {
+    state = state.copyWith(loading: d);
+  }
+
+  // 设置搜索数据总数
+  void setResultCount(int d) {
+    state = state.copyWith(resultCount: d);
+  }
+
+  // 设置最新数据
   void setData(List<MusicEntity> d) {
     state = state.copyWith(data: d);
+  }
+
+  // 设置歌曲排序
+  void setSongCacheData(List<List<MusicEntity>> d) {
+    state = state.copyWith(songCacheData: d);
+  }
+
+  // 设置专辑排序
+  void setCollectionCacheData(List<List<MusicEntity>> d) {
+    state = state.copyWith(collectionCacheData: d);
+  }
+
+  // 清除缓存数据
+  void clearCacheData() {
+    state = state.copyWith(
+      songCacheData: [],
+      collectionCacheData: [],
+    );
   }
 }

@@ -20,7 +20,12 @@ HomeState _$HomeStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$HomeState {
-  List<MusicEntity> get data => throw _privateConstructorUsedError; // 未搜索的情况下数据
+  List<MusicEntity> get data => throw _privateConstructorUsedError;
+  bool get loading =>
+      throw _privateConstructorUsedError; // 排序选中，索引0 为 类型， 索引1 为 升序，降序
+  List<dynamic> get activeSelect => throw _privateConstructorUsedError;
+  int get page => throw _privateConstructorUsedError;
+  int get resultCount => throw _privateConstructorUsedError; // 未搜索的情况下数据
   List<MusicEntity> get emptySearchData =>
       throw _privateConstructorUsedError; // 歌曲升序，降序缓存
   List<List<MusicEntity>> get songCacheData =>
@@ -45,6 +50,10 @@ abstract class $HomeStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<MusicEntity> data,
+      bool loading,
+      List<dynamic> activeSelect,
+      int page,
+      int resultCount,
       List<MusicEntity> emptySearchData,
       List<List<MusicEntity>> songCacheData,
       List<List<MusicEntity>> collectionCacheData});
@@ -66,6 +75,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   @override
   $Res call({
     Object? data = null,
+    Object? loading = null,
+    Object? activeSelect = null,
+    Object? page = null,
+    Object? resultCount = null,
     Object? emptySearchData = null,
     Object? songCacheData = null,
     Object? collectionCacheData = null,
@@ -75,6 +88,22 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as List<MusicEntity>,
+      loading: null == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      activeSelect: null == activeSelect
+          ? _value.activeSelect
+          : activeSelect // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      page: null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as int,
+      resultCount: null == resultCount
+          ? _value.resultCount
+          : resultCount // ignore: cast_nullable_to_non_nullable
+              as int,
       emptySearchData: null == emptySearchData
           ? _value.emptySearchData
           : emptySearchData // ignore: cast_nullable_to_non_nullable
@@ -101,6 +130,10 @@ abstract class _$$HomeStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {List<MusicEntity> data,
+      bool loading,
+      List<dynamic> activeSelect,
+      int page,
+      int resultCount,
       List<MusicEntity> emptySearchData,
       List<List<MusicEntity>> songCacheData,
       List<List<MusicEntity>> collectionCacheData});
@@ -120,6 +153,10 @@ class __$$HomeStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? data = null,
+    Object? loading = null,
+    Object? activeSelect = null,
+    Object? page = null,
+    Object? resultCount = null,
     Object? emptySearchData = null,
     Object? songCacheData = null,
     Object? collectionCacheData = null,
@@ -129,6 +166,22 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
               as List<MusicEntity>,
+      loading: null == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      activeSelect: null == activeSelect
+          ? _value._activeSelect
+          : activeSelect // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      page: null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as int,
+      resultCount: null == resultCount
+          ? _value.resultCount
+          : resultCount // ignore: cast_nullable_to_non_nullable
+              as int,
       emptySearchData: null == emptySearchData
           ? _value._emptySearchData
           : emptySearchData // ignore: cast_nullable_to_non_nullable
@@ -150,10 +203,15 @@ class __$$HomeStateImplCopyWithImpl<$Res>
 class _$HomeStateImpl implements _HomeState {
   const _$HomeStateImpl(
       {final List<MusicEntity> data = const [],
+      this.loading = false,
+      final List<dynamic> activeSelect = const [],
+      this.page = 1,
+      this.resultCount = 0,
       final List<MusicEntity> emptySearchData = const [],
-      final List<List<MusicEntity>> songCacheData = const [],
-      final List<List<MusicEntity>> collectionCacheData = const []})
+      final List<List<MusicEntity>> songCacheData = const [[], []],
+      final List<List<MusicEntity>> collectionCacheData = const [[], []]})
       : _data = data,
+        _activeSelect = activeSelect,
         _emptySearchData = emptySearchData,
         _songCacheData = songCacheData,
         _collectionCacheData = collectionCacheData;
@@ -170,6 +228,26 @@ class _$HomeStateImpl implements _HomeState {
     return EqualUnmodifiableListView(_data);
   }
 
+  @override
+  @JsonKey()
+  final bool loading;
+// 排序选中，索引0 为 类型， 索引1 为 升序，降序
+  final List<dynamic> _activeSelect;
+// 排序选中，索引0 为 类型， 索引1 为 升序，降序
+  @override
+  @JsonKey()
+  List<dynamic> get activeSelect {
+    if (_activeSelect is EqualUnmodifiableListView) return _activeSelect;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_activeSelect);
+  }
+
+  @override
+  @JsonKey()
+  final int page;
+  @override
+  @JsonKey()
+  final int resultCount;
 // 未搜索的情况下数据
   final List<MusicEntity> _emptySearchData;
 // 未搜索的情况下数据
@@ -206,7 +284,7 @@ class _$HomeStateImpl implements _HomeState {
 
   @override
   String toString() {
-    return 'HomeState(data: $data, emptySearchData: $emptySearchData, songCacheData: $songCacheData, collectionCacheData: $collectionCacheData)';
+    return 'HomeState(data: $data, loading: $loading, activeSelect: $activeSelect, page: $page, resultCount: $resultCount, emptySearchData: $emptySearchData, songCacheData: $songCacheData, collectionCacheData: $collectionCacheData)';
   }
 
   @override
@@ -215,6 +293,12 @@ class _$HomeStateImpl implements _HomeState {
         (other.runtimeType == runtimeType &&
             other is _$HomeStateImpl &&
             const DeepCollectionEquality().equals(other._data, _data) &&
+            (identical(other.loading, loading) || other.loading == loading) &&
+            const DeepCollectionEquality()
+                .equals(other._activeSelect, _activeSelect) &&
+            (identical(other.page, page) || other.page == page) &&
+            (identical(other.resultCount, resultCount) ||
+                other.resultCount == resultCount) &&
             const DeepCollectionEquality()
                 .equals(other._emptySearchData, _emptySearchData) &&
             const DeepCollectionEquality()
@@ -228,6 +312,10 @@ class _$HomeStateImpl implements _HomeState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_data),
+      loading,
+      const DeepCollectionEquality().hash(_activeSelect),
+      page,
+      resultCount,
       const DeepCollectionEquality().hash(_emptySearchData),
       const DeepCollectionEquality().hash(_songCacheData),
       const DeepCollectionEquality().hash(_collectionCacheData));
@@ -251,6 +339,10 @@ class _$HomeStateImpl implements _HomeState {
 abstract class _HomeState implements HomeState {
   const factory _HomeState(
       {final List<MusicEntity> data,
+      final bool loading,
+      final List<dynamic> activeSelect,
+      final int page,
+      final int resultCount,
       final List<MusicEntity> emptySearchData,
       final List<List<MusicEntity>> songCacheData,
       final List<List<MusicEntity>> collectionCacheData}) = _$HomeStateImpl;
@@ -259,7 +351,15 @@ abstract class _HomeState implements HomeState {
       _$HomeStateImpl.fromJson;
 
   @override
-  List<MusicEntity> get data; // 未搜索的情况下数据
+  List<MusicEntity> get data;
+  @override
+  bool get loading; // 排序选中，索引0 为 类型， 索引1 为 升序，降序
+  @override
+  List<dynamic> get activeSelect;
+  @override
+  int get page;
+  @override
+  int get resultCount; // 未搜索的情况下数据
   @override
   List<MusicEntity> get emptySearchData; // 歌曲升序，降序缓存
   @override
